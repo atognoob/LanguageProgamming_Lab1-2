@@ -7,6 +7,24 @@
 
 5) по запросу POST /api/v1/datediff- отдает в формате json время между датами определенными параметрами start и end (каждый - это json формата {"date":"12.20.2021 22:21:05", "tz": "EST"} или {"date":"12:30pm 2020-12-01", "tz": "Europe/Moscow"}, tz - опциональна).
 
+# server.py (WSGI Application)
+Это основное серверное приложение, которое обрабатывает HTTP-запросы. Оно использует интерфейс WSGI (wsgiref.simple_server) для создания простого веб-сервера.
+
+* GET /: Returns the current server time in HTML format.
+* GET /<tz_name>: Returns the current time for the requested time zone.
+* POST /api/v1/time: Returns the current time in JSON format based on the requested time zone (tz).
+* POST /api/v1/date: Returns the current date in JSON format for the requested time zone (tz).
+* POST /api/v1/datediff: Returns the time difference between two dates in JSON format.
+
+# test.py (API Testing Script)
+Этот скрипт тестирует конечные точки API, чтобы убедиться, что сервер WSGI работает правильно. Он использует библиотеку запросов для отправки HTTP-запросов на сервер.
+
+* GET / для проверки времени сервера.
+* GET /<tz_name> для проверки различных часовых поясов (например, Европа/Лондон, Азия/Хо_Чи_Мин).
+* POST /api/v1/time для проверки текущего времени в определенных часовых поясах.
+* POST /api/v1/date для проверки текущей даты.
+* POST /api/v1/datediff для проверки разницы во времени между двумя датами.
+  
 # Запустите сервер WSGI
 Откройте терминал и запустите WSGI-приложение:
 ```
